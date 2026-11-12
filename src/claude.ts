@@ -1,5 +1,6 @@
 // Claude Code on the shared ACP client: one `claude-agent-acp` process (the
-// Agent Client Protocol adapter for Claude Code), signed in as your own Claude
+// Agent Client Protocol adapter for Claude Code, run with `npx` at the version
+// the manifest pins, so nothing is installed by hand), signed in as your own Claude
 // Code is. Model, thinking level and permission mode are set as config
 // options. Each session gets its own Buzz tools over HTTP MCP, never a Buzz key.
 import { AcpProcess } from "./acp/process";
@@ -34,7 +35,7 @@ export const CLAUDE: AcpHooks = {
   label: "Claude",
   program: "claude",
   missing:
-    "claude-agent-acp is not installed or not on your PATH. Run `npm install -g @agentclientprotocol/claude-agent-acp`, and sign in to Claude Code with `claude`.",
+    "npx is not on your PATH, so Claude can't start. Install Node.js 22 or later, and sign in to Claude Code with `claude`.",
   env: ENV,
   select: async (claude, session, want) => {
     let levels:

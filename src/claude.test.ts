@@ -81,7 +81,7 @@ const fake = (failure?: string) => {
   return { spawn, spawned, received, killed: () => killed };
 };
 
-it("declares claude-agent-acp and the Buzz tools", () => {
+it("runs the pinned claude-agent-acp with npx, and declares the Buzz tools", () => {
   const manifest = JSON.parse(
     readFileSync(new URL("../plugin/manifest.json", import.meta.url), "utf8"),
   );
@@ -90,7 +90,13 @@ it("declares claude-agent-acp and the Buzz tools", () => {
     name: "Claude (subscription)",
     apiVersion: 1,
     host: {
-      processes: [{ id: "claude", program: "claude-agent-acp" }],
+      processes: [
+        {
+          id: "claude",
+          program: "npx",
+          args: ["-y", "@agentclientprotocol/claude-agent-acp@0.106.0"],
+        },
+      ],
       mcp: true,
       files: true,
     },

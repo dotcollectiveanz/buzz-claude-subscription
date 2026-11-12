@@ -19,6 +19,8 @@ needs Anthropic's approval.
 - **Manifest `host` changes need the owner's approval** on update in Buzz; keep them minimal, and update
   `scripts/check.mjs` and `src/claude.test.ts` with them.
 - **Only a checked session UUID names a transcript file** to read (`src/transcript.ts`).
+- **The adapter version is pinned in `plugin/manifest.json`** (`npx -y …@x.y.z`). Bump it there,
+  run the live test, and update `scripts/check.mjs` and `src/claude.test.ts` with it.
 - **Keep `ANTHROPIC_API_KEY` out of Claude's environment** (`ENV` in `src/claude.ts`), so the
   subscription login is used.
 

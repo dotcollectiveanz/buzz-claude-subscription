@@ -30,13 +30,9 @@ Same as [buzz-opencode](https://github.com/dotcollectiveanz/buzz-opencode):
 - Buzz desktop 1.0 on macOS.
 - Claude Code installed and signed in with your subscription (`claude`, then `/login`). Check with
   `claude auth status`.
-- The Claude Code ACP adapter on the PATH your login shell gives Buzz:
-
-  ```sh
-  npm install -g @agentclientprotocol/claude-agent-acp@0.106.0
-  ```
-
-  On this Mac it's installed with nvm's Node 22 npm, into `~/.nvm/versions/node/v22.22.1/bin`.
+- Node.js 22 or later, with `npx` on the PATH your login shell gives Buzz. The plugin runs the Claude
+  Code ACP adapter with `npx`, pinned to `@agentclientprotocol/claude-agent-acp@0.106.0`: the first
+  start downloads it (about 20 seconds), and later starts use npm's cache. Nothing to install by hand.
 
 It uses your whole Claude Code setup: `~/.claude/settings.json`, your model routing, MCP servers and
 skills. The plugin removes `ANTHROPIC_API_KEY` from Claude's environment so the subscription login is
@@ -50,7 +46,7 @@ agent with **Claude (subscription)** as its Harness, or switch one to it.
 
 ### Access it asks for
 
-- Run `claude-agent-acp`.
+- Run `npx -y @agentclientprotocol/claude-agent-acp@0.106.0` (the Claude Code ACP adapter).
 - Serve the Buzz tools to Claude on this computer (MCP), acting as the agent.
 - Read files: uploads you ask the agent to make, and Claude Code's transcripts for Activity.
 

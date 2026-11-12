@@ -17,7 +17,7 @@ check("manifest apiVersion 1", manifest.apiVersion === 1);
 const desc = Buffer.byteLength(manifest.description || "");
 check("manifest description is 1-280 bytes", desc >= 1 && desc <= 280, `${desc} bytes`);
 const processes = (manifest.host?.processes ?? []).map((p) => `${p.id}=${p.program} ${(p.args ?? []).join(" ")}`);
-check("manifest declares claude-agent-acp only", processes.join(",") === "claude=claude-agent-acp ", processes.join(","));
+check("manifest runs the pinned claude-agent-acp with npx", processes.join(",") === "claude=npx -y @agentclientprotocol/claude-agent-acp@0.106.0", processes.join(","));
 check("manifest asks for MCP and files", manifest.host?.mcp === true && manifest.host?.files === true);
 
 // Buzz rejects the folder if the icon breaks its limits: PNG, at most 1 MiB,

@@ -16,7 +16,13 @@ import { DEFAULT_CONFIG } from "./settings";
 
 const LIVE = process.env.CLAUDE_LIVE === "1";
 const MODEL = process.env.CLAUDE_MODEL ?? "haiku";
-const PROGRAMS: Record<string, string> = { claude: "claude-agent-acp" };
+// As the manifest declares it.
+const MANIFEST = JSON.parse(
+  readFileSync(new URL("../plugin/manifest.json", import.meta.url), "utf8"),
+) as { host: { processes: { id: string; program: string; args?: string[] }[] } };
+const PROCESSES = Object.fromEntries(
+  MANIFEST.host.processes.map((p) => [p.id, p]),
+);
 const CHANNEL = "c".repeat(36);
 const ROOT = "e".repeat(64);
 const AGENT = "a".repeat(64);
@@ -24,8 +30,8 @@ const AGENT = "a".repeat(64);
 /** The host's `spawn`, running a declared process with its manifest args. */
 const spawn = async (id: string, options: HostProcessOptions = {}) => {
   const child = spawnChild(
-    PROGRAMS[id] ?? id,
-    [...(options.args ?? [])],
+    PROCESSES[id]?.program ?? id,
+    [...(PROCESSES[id]?.args ?? []), ...(options.args ?? [])],
     {
       cwd: options.cwd?.replace(/^~/, homedir()),
       env: Object.fromEntries(
