@@ -1,0 +1,17 @@
+{
+  "id": "claude-subscription",
+  "name": "Claude (subscription)",
+  "apiVersion": 1,
+  "description": "Buzz agents that run on your own signed-in Claude Code, using your Claude subscription instead of an API key. Each thread an agent is mentioned in is one continuing Claude session.",
+  "discovery": {
+    "category": "agents",
+    "tags": ["code", "coding-agents", "claude"]
+  },
+  "host": {
+    "processes": [
+      { "id": "claude", "program": "claude-agent-acp" }
+    ],
+    "mcp": true,
+    "files": true
+  }
+}
